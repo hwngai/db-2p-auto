@@ -3,9 +3,45 @@ import json
 import schedule
 from time import sleep
 import asyncio
+import random
+
+proxy_list = [
+    "103.59.170.135:9982:ztech:Ztech@223999",
+    "103.59.170.176:9982:ztech:Ztech@223999",
+    "103.59.170.175:9982:ztech:Ztech@223999",
+    "103.59.170.145:9982:ztech:Ztech@223999",
+    "103.59.170.184:9982:ztech:Ztech@223999",
+    "103.59.170.183:9982:ztech:Ztech@223999",
+    "103.59.170.182:9982:ztech:Ztech@223999",
+    "103.59.170.181:9982:ztech:Ztech@223999",
+    "103.59.170.180:9982:ztech:Ztech@223999",
+    "103.59.170.179:9982:ztech:Ztech@223999",
+    "103.59.170.178:9982:ztech:Ztech@223999",
+    "103.59.170.177:9982:ztech:Ztech@223999",
+    "103.59.170.189:9982:ztech:Ztech@223999",
+    "103.59.170.136:9982:ztech:Ztech@223999",
+    "103.59.170.134:9982:ztech:Ztech@223999",
+    "103.59.170.138:9982:ztech:Ztech@223999",
+    "103.59.170.139:9982:ztech:Ztech@223999",
+    "103.59.170.137:9982:ztech:Ztech@223999",
+    "103.59.170.141:9982:ztech:Ztech@223999",
+    "103.59.170.142:9982:ztech:Ztech@223999",
+    "103.59.170.202:9982:ztech:Ztech@223999",
+]
 
 def get_lottery_data(api_url):
-    response = requests.get(api_url)
+    proxy = random.choice(proxy_list)
+    proxy = proxy.strip().split(":")
+    proxy_address = proxy[0]
+    proxy_port = proxy[1]
+    proxy_username = proxy[2]
+    proxy_password = proxy[3]
+
+    proxies = {
+        'http': f'http://{proxy_username}:{proxy_password}@{proxy_address}:{proxy_port}'
+    }
+
+    response = requests.get(api_url, proxies=proxies)
 
     if response.status_code == 200:
         data_get = response.json()
@@ -52,7 +88,7 @@ async def main():
             "official_time": official_time
         }
 
-        post_url = 'http://0.0.0.0:8080/l33/'
+        post_url = 'http://123.30.234.209:8080/l33/'
         post_lottery_data(post_url, data_post)
 
 def run_main():
