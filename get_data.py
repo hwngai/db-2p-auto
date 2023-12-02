@@ -90,6 +90,8 @@ async def main():
 
         post_url = 'http://123.30.234.209:8080/l33/'
         post_lottery_data(post_url, data_post)
+        post_url = 'http://10.10.18.3:8080/l33/'
+        post_lottery_data(post_url, data_post)
 
 def run_main():
     loop = asyncio.get_event_loop()
